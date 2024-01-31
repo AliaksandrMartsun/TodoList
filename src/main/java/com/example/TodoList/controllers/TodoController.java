@@ -1,8 +1,5 @@
 package com.example.TodoList.controllers;
 
-import com.example.TodoList.repr.ToDoRepr;
-import com.example.TodoList.service.ToDoService;
-import com.example.TodoList.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.example.TodoList.repr.ToDoRepr;
+import com.example.TodoList.service.ToDoService;
+import com.example.TodoList.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,16 +28,23 @@ public class TodoController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String indexPage() {
-        List<ToDoRepr> todos = toDoService.findTodosByUserId(userService.getCurrentUserId().orElseThrow(ResourceNotFoundException::new));
+    @GetMapping("")
+    public String mainPage() {
+        return "redirect:/todo/all";
+    }
+
+    @GetMapping("/todo/all")
+    public String allTodosPage(Model model) {
+        List<ToDoRepr> todos = toDoService.findToDosByUserId(userService.getCurrentUserId()
+                .orElseThrow(ResourceNotFoundException::new));
         model.addAttribute("todos", todos);
-        return "index";
+        return "todoList";
     }
 
     @GetMapping("/todo/{id}")
     public String todoPage(@PathVariable("id") Long id, Model model) {
-        ToDoRepr toDoRepr = toDoService.findById(id).orElseThrow(ResourceNotFoundException::new);
+        ToDoRepr toDoRepr = toDoService.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("todo", toDoRepr);
         return "todo";
     }

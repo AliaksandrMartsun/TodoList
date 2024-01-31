@@ -4,6 +4,8 @@ import javax.validation.constraints.NotEmpty;
 
 public class UserRepr {
 
+    private UserRepr userRepr;
+
     private Long id;
 
     @NotEmpty
