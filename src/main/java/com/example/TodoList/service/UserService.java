@@ -1,11 +1,11 @@
 package com.example.TodoList.service;
 
-import com.example.TodoList.persist.entity.User;
-import com.example.TodoList.persist.repo.UserRepository;
-import com.example.TodoList.repr.UserRepr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.example.TodoList.persist.entity.User;
+import com.example.TodoList.persist.repo.UserRepository;
+import com.example.TodoList.repr.UserRepr;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
